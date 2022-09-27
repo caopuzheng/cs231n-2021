@@ -1,5 +1,6 @@
 {
+    "editor.tabSize": 2,
     "python.formatting.yapfArgs": [
-        "--style={based_on_style: google, column_limit: 100, indent_width: 2, join_multiple_lines = false}"
-    ]
+        "--style={based_on_style: google, indent_width: 2, column_limit: 120, join_multiple_lines = false}"
+    ],
 }
