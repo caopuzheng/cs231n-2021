@@ -8,6 +8,10 @@ class KNearestNeighbor(object):
     """ a kNN classifier with L2 distance """
 
     def __init__(self):
+        '''
+        Initialize the KNN classifier.
+        All data is passed via the train() method.
+        '''
         pass
 
     def train(self, X, y):
