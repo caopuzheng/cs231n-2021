@@ -106,7 +106,7 @@ class KNearestNeighbor(object):
             #######################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-            dists[i] = np.sqrt(np.sum(np.power(self.X_train - X[i], 2), axis=1))
+            dists[i, :] = np.sqrt(np.sum(np.power(self.X_train - X[i], 2), axis=1))
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return dists
@@ -139,8 +139,8 @@ class KNearestNeighbor(object):
         # (x - y)^2 = x^2 + y^2 - 2xy
 
         squared_sum = -2 * (X @ self.X_train.T)
-        squared_sum += np.sum(np.power(X, 2), axis=1)
-        squared_sum += np.sum(np.power(self.X_train.T, 2), axis=1)
+        squared_sum += np.sum(np.power(X, 2), axis=1, keepdims=True)
+        squared_sum += np.sum(np.power(self.X_train, 2), axis=1, keepdims=True).T
 
         dists = np.sqrt(squared_sum)
 
@@ -175,7 +175,7 @@ class KNearestNeighbor(object):
             #########################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-            pass
+            closest_y = self.y_train[np.argpartition(dists[i, :], k)[:k]]
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
             #########################################################################
@@ -187,28 +187,31 @@ class KNearestNeighbor(object):
             #########################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-            pass
+            y_pred[i] = np.bincount(closest_y).argmax()
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         return y_pred
 
 
+## Testing codes
 knn = KNearestNeighbor()
+i = 5
+j = 10
 
-# Training data shape:  (50000, 32, 32, 3)
-# Training labels shape:  (50000,)
-# Test data shape:  (10000, 32, 32, 3)
-# Test labels shape:  (10000,)
+X_test = np.arange(i * 32 * 32 * 3).reshape(i, 32 * 32 * 3)
+Y_test = np.arange(i)
 
-X_train = np.random.rand(10 * 32 * 32 * 3).reshape(10, 32, 32, 3)
-Y_train = np.random.rand(10)
-
-X_test = np.random.rand(5 * 32 * 32 * 3).reshape(5, 32, 32, 3)
-Y_test = np.random.rand(5)
+X_train = np.arange(j * 32 * 32 * 3).reshape(j, 32 * 32 * 3)
+Y_train = np.arange(j)
 
 knn.train(X_train, Y_train)
 
-dists_3 = knn.compute_distances_two_loops(X_test)
-dists_2 = knn.compute_distances_one_loop(X_test)
-dists_1 = knn.compute_distances_no_loops(X_test)
+# dists_3 = knn.compute_distances_two_loops(X_test)
+# dists_2 = knn.compute_distances_one_loop(X_test)
+# assert (np.all(dists_3 == dists_2))
+
+# dists_1 = knn.compute_distances_no_loops(X_test)
+# assert (np.all(dists_1 == dists_2))
+
+print(knn.predict(X_test, k=4, num_loops=0))
