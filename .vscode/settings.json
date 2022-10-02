@@ -1,6 +1,6 @@
 {
-    //"editor.tabSize": 4,indent_width: 4,
-    "python.formatting.yapfArgs": [
-        "--style={based_on_style: google,  column_limit: 100, join_multiple_lines = false}"
-    ],
+  //"editor.tabSize": 4,indent_width: 4,
+  "python.formatting.yapfArgs": [
+    "--style={based_on_style: google, column_limit: 100, join_multiple_lines = false}"
+  ]
 }

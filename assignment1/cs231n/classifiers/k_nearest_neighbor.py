@@ -81,9 +81,10 @@ class KNearestNeighbor(object):
                 #####################################################################
                 # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-                pass
+                dists[i, j] = np.sqrt(np.sum(np.power(X[i] - self.X_train[j], 2)))
 
                 # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+
         return dists
 
     def compute_distances_one_loop(self, X):
@@ -105,7 +106,7 @@ class KNearestNeighbor(object):
             #######################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-            pass
+            dists[i] = np.sqrt(np.sum(np.power(self.X_train - X[i], 2), axis=1))
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return dists
@@ -135,7 +136,13 @@ class KNearestNeighbor(object):
         #########################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        # (x - y)^2 = x^2 + y^2 - 2xy
+
+        squared_sum = -2 * (X @ self.X_train.T)
+        squared_sum += np.sum(np.power(X, 2), axis=1)
+        squared_sum += np.sum(np.power(self.X_train.T, 2), axis=1)
+
+        dists = np.sqrt(squared_sum)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         return dists
@@ -185,3 +192,23 @@ class KNearestNeighbor(object):
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         return y_pred
+
+
+knn = KNearestNeighbor()
+
+# Training data shape:  (50000, 32, 32, 3)
+# Training labels shape:  (50000,)
+# Test data shape:  (10000, 32, 32, 3)
+# Test labels shape:  (10000,)
+
+X_train = np.random.rand(10 * 32 * 32 * 3).reshape(10, 32, 32, 3)
+Y_train = np.random.rand(10)
+
+X_test = np.random.rand(5 * 32 * 32 * 3).reshape(5, 32, 32, 3)
+Y_test = np.random.rand(5)
+
+knn.train(X_train, Y_train)
+
+dists_3 = knn.compute_distances_two_loops(X_test)
+dists_2 = knn.compute_distances_one_loop(X_test)
+dists_1 = knn.compute_distances_no_loops(X_test)
