@@ -22,7 +22,7 @@ These are my solutions for the **CS231n** course assignments offered by Stanford
 
 ### Assignment 1
 
-* [Q1](assignment1/knn.ipynb): k-Nearest Neighbor classifier. (_Undone_)
+* [Q1](assignment1/knn.ipynb): k-Nearest Neighbor classifier. (_Done_)
 * [Q2](assignment1/svm.ipynb): Training a Support Vector Machine. (_Undone_)
 * [Q3](assignment1/softmax.ipynb): Implement a Softmax classifier. (_Undone_)
 * [Q4](assignment1/two_layer_net.ipynb): Two-Layer Neural Network. (_Undone_)

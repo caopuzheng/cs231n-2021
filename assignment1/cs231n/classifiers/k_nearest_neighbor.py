@@ -194,24 +194,24 @@ class KNearestNeighbor(object):
         return y_pred
 
 
-## Testing codes
-knn = KNearestNeighbor()
-i = 5
-j = 10
+# ## Testing codes
+# knn = KNearestNeighbor()
+# i = 5
+# j = 10
 
-X_test = np.arange(i * 32 * 32 * 3).reshape(i, 32 * 32 * 3)
-Y_test = np.arange(i)
+# X_test = np.arange(i * 32 * 32 * 3).reshape(i, 32 * 32 * 3)
+# Y_test = np.arange(i)
 
-X_train = np.arange(j * 32 * 32 * 3).reshape(j, 32 * 32 * 3)
-Y_train = np.arange(j)
+# X_train = np.arange(j * 32 * 32 * 3).reshape(j, 32 * 32 * 3)
+# Y_train = np.arange(j)
 
-knn.train(X_train, Y_train)
+# knn.train(X_train, Y_train)
 
-# dists_3 = knn.compute_distances_two_loops(X_test)
-# dists_2 = knn.compute_distances_one_loop(X_test)
-# assert (np.all(dists_3 == dists_2))
+# # dists_3 = knn.compute_distances_two_loops(X_test)
+# # dists_2 = knn.compute_distances_one_loop(X_test)
+# # assert (np.all(dists_3 == dists_2))
 
-# dists_1 = knn.compute_distances_no_loops(X_test)
-# assert (np.all(dists_1 == dists_2))
+# # dists_1 = knn.compute_distances_no_loops(X_test)
+# # assert (np.all(dists_1 == dists_2))
 
-print(knn.predict(X_test, k=4, num_loops=0))
+# print(knn.predict(X_test, k=4, num_loops=0))
